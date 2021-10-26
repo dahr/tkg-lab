@@ -10,10 +10,10 @@ $TKG_LAB_SCRIPTS/01-prep-$IAAS-objects.sh
 $TKG_LAB_SCRIPTS/02-deploy-$IAAS-mgmt-cluster.sh
 $TKG_LAB_SCRIPTS/03-post-deploy-mgmt-cluster.sh
 # Management Step 2
-if [ "$IAAS" != "aws" ];
-then
-  $TKG_LAB_SCRIPTS/tmc-register-mc.sh
-fi
+#if [ "$IAAS" != "aws" ];
+#then
+#  $TKG_LAB_SCRIPTS/tmc-register-mc.sh
+#fi
 # Management Step 3
 $TKG_LAB_SCRIPTS/create-dns-zone.sh
 $TKG_LAB_SCRIPTS/retrieve-lets-encrypt-ca-cert.sh
@@ -38,12 +38,12 @@ $TKG_LAB_SCRIPTS/deploy-workload-cluster.sh \
   $(yq e .shared-services-cluster.controlplane-endpoint $PARAMS_YAML) \
   $(yq e '.shared-services-cluster.kubernetes-version // null' $PARAMS_YAML)
 # Shared Services Step 2
-$TKG_LAB_SCRIPTS/tmc-attach.sh $(yq e .shared-services-cluster.name $PARAMS_YAML)
+#$TKG_LAB_SCRIPTS/tmc-attach.sh $(yq e .shared-services-cluster.name $PARAMS_YAML)
 # Shared Services Step 3
-$TKG_LAB_SCRIPTS/tmc-policy.sh \
-  $(yq e .shared-services-cluster.name $PARAMS_YAML ) \
-  cluster.admin \
-  platform-team
+#$TKG_LAB_SCRIPTS/tmc-policy.sh \
+#  $(yq e .shared-services-cluster.name $PARAMS_YAML ) \
+#  cluster.admin \
+#  platform-team
 # Shared Services Step 4
 $TKG_LAB_SCRIPTS/deploy-cert-manager.sh $(yq e .shared-services-cluster.name $PARAMS_YAML)
 $TKG_LAB_SCRIPTS/generate-and-apply-contour-yaml.sh $(yq e .shared-services-cluster.name $PARAMS_YAML)
@@ -61,7 +61,7 @@ $TKG_LAB_SCRIPTS/generate-and-apply-grafana-yaml.sh \
   $(yq e .shared-services-cluster.name $PARAMS_YAML) \
   $(yq e .shared-services-cluster.grafana-fqdn $PARAMS_YAML)
 # Shared Services Step 9
-$TKG_LAB_SCRIPTS/dataprotection.sh $(yq e .shared-services-cluster.name $PARAMS_YAML)
+#$TKG_LAB_SCRIPTS/dataprotection.sh $(yq e .shared-services-cluster.name $PARAMS_YAML)
 # Shared Services Step 10
 $TKG_LAB_SCRIPTS/generate-and-apply-harbor-yaml.sh \
    $(yq e .management-cluster.name $PARAMS_YAML) \
@@ -70,7 +70,7 @@ $TKG_LAB_SCRIPTS/generate-and-apply-harbor-yaml.sh \
 # Management Step 9
 $TKG_LAB_SCRIPTS/generate-and-apply-fluent-bit-yaml.sh $(yq e .management-cluster.name $PARAMS_YAML)
 # Management Step 10
-$TKG_LAB_SCRIPTS/velero.sh $(yq e .management-cluster.name $PARAMS_YAML)
+#$TKG_LAB_SCRIPTS/velero.sh $(yq e .management-cluster.name $PARAMS_YAML)
 
 # Workload Step 1
-$TKG_LAB_SCRIPTS/deploy-all-workload-cluster-components.sh
+#$TKG_LAB_SCRIPTS/deploy-all-workload-cluster-components.sh

@@ -10,12 +10,12 @@ $TKG_LAB_SCRIPTS/deploy-workload-cluster.sh \
   $(yq e .workload-cluster.controlplane-endpoint $PARAMS_YAML) \
   $(yq e '.shared-services-cluster.kubernetes-version // null' $PARAMS_YAML)
 # Workload Step 2
-$TKG_LAB_SCRIPTS/tmc-attach.sh $(yq e .workload-cluster.name $PARAMS_YAML)
+#$TKG_LAB_SCRIPTS/tmc-attach.sh $(yq e .workload-cluster.name $PARAMS_YAML)
 # Workload Step 3
-$TKG_LAB_SCRIPTS/tmc-policy.sh \
-  $(yq e .workload-cluster.name $PARAMS_YAML) \
-  cluster.admin \
-  platform-team
+#$TKG_LAB_SCRIPTS/tmc-policy.sh \
+#  $(yq e .workload-cluster.name $PARAMS_YAML) \
+#  cluster.admin \
+#  platform-team
 # Workload Step 4
 IAAS=$(yq e .iaas $PARAMS_YAML)
 $TKG_LAB_SCRIPTS/deploy-cert-manager.sh $(yq e .workload-cluster.name $PARAMS_YAML)
@@ -33,4 +33,4 @@ $TKG_LAB_SCRIPTS/generate-and-apply-grafana-yaml.sh \
   $(yq e .workload-cluster.name $PARAMS_YAML) \
   $(yq e .workload-cluster.grafana-fqdn $PARAMS_YAML)
 # Workload Step 8
-$TKG_LAB_SCRIPTS/dataprotection.sh $(yq e .workload-cluster.name $PARAMS_YAML)
+#$TKG_LAB_SCRIPTS/dataprotection.sh $(yq e .workload-cluster.name $PARAMS_YAML)
